@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import { PrismaClient } from '@prisma/client';
+import userRoutes from './routes/userRoutes';
 
 const app = express();
 const prisma = new PrismaClient();
@@ -17,6 +18,9 @@ app.get('/health', (req: Request, res: Response) => {
 app.get('/', (req: Request, res: Response) => {
   res.json({ message: 'Welcome to Express + Prisma + TypeScript API' });
 });
+
+// GOOD PRACTICE: Mounting routes
+app.use('/api', userRoutes);
 
 // Start server
 app.listen(PORT, () => {
